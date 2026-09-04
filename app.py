@@ -36,6 +36,15 @@ languages = {
 
 source_languages = {"Auto Detect": "auto", **languages}
 
+
+def swap_languages():
+    if st.session_state.source != "Auto Detect":
+        st.session_state.source, st.session_state.target = (
+            st.session_state.target,
+            st.session_state.source,
+        )
+
+
 st.set_page_config(
     page_title="Language Translation Tool",
     page_icon="🌍",
@@ -45,28 +54,30 @@ st.set_page_config(
 st.title("Language Translation Tool")
 st.caption(f"Translate text between {len(languages)} popular languages.")
 
+if "source" not in st.session_state:
+    st.session_state.source = "Auto Detect"
+if "target" not in st.session_state:
+    st.session_state.target = "English"
+
 col1, swap_col, col2 = st.columns([5, 1, 5])
 
 with col1:
     source = st.selectbox(
         "Source Language",
-        list(source_languages.keys())
+        list(source_languages.keys()),
+        key="source"
     )
-
-with swap_col:
-    st.write("")
-    if st.button("Swap", use_container_width=True):
-        if source != "Auto Detect":
-            st.session_state.source = target
-            st.session_state.target = source
-            st.rerun()
 
 with col2:
     target = st.selectbox(
         "Target Language",
         list(languages.keys()),
-        index=list(languages.keys()).index("English")
+        key="target"
     )
+
+with swap_col:
+    st.write("")
+    st.button("Swap", use_container_width=True, on_click=swap_languages)
 
 text = st.text_area(
     "Enter Text",
