@@ -15,6 +15,6 @@ Open the app at `http://localhost:8502`.
 
 ## Notes
 
-- Translation uses Google Translate through `googletrans`.
+- Translation uses Google Translate through `deep-translator`.
 - Text-to-speech is generated with `gTTS` when the selected language is supported.
 - An internet connection is required for translation and audio generation.

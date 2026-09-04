@@ -1,5 +1,5 @@
 import streamlit as st
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 from gtts import gTTS
 import io
 
@@ -95,9 +95,9 @@ if st.button("Translate", type="primary", use_container_width=True):
 
     else:
         try:
-            translated = Translator().translate(
-                text, src=source_languages[source], dest=languages[target]
-            )
+            translated = GoogleTranslator(
+                source=source_languages[source], target=languages[target]
+            ).translate(text)
 
             st.subheader("Translated Text")
             st.text_area("Result", translated.text, height=180)
