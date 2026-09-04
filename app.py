@@ -100,14 +100,14 @@ if st.button("Translate", type="primary", use_container_width=True):
             ).translate(text)
 
             st.subheader("Translated Text")
-            st.text_area("Result", translated.text, height=180)
+            st.text_area("Result", translated, height=180)
             st.download_button(
                 "Download translation", translated.text,
                 file_name="translation.txt", mime="text/plain"
             )
 
             try:
-                tts = gTTS(translated.text, lang=languages[target])
+                tts = gTTS(translated, lang=languages[target])
                 audio = io.BytesIO()
                 tts.write_to_fp(audio)
                 st.audio(audio.getvalue())
